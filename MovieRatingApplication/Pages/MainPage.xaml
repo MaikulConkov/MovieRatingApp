@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MovieRatingApplication.ViewModels"
+             xmlns:controls="clr-namespace:MovieRatingApplication.Controls"
+             x:DataType="vm:HomeViewModel"
+             x:Class="MovieRatingApplication.Pages.MainPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="Black">
+
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label" x:Key="MenuLabel">
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="TextColor" Value="White"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid Margin="0"
+  Padding="0">
+        <ScrollView BackgroundColor="Black">
+            <VerticalStackLayout>
+                <Grid HeightRequest="500">
+                    <Image Aspect="Center"
+                   HeightRequest="350"
+                   VerticalOptions="Start"
+                   Opacity="0.7">
+                        <Image.Source>
+                            <UriImageSource Uri="{Binding TrendingNow.Thumbnail}"/>
+                        </Image.Source>
+                    </Image>
+                    <Grid VerticalOptions="Start"
+                  HeightRequest="35"
+                  Margin="0,35,0,0">
+                        <FlexLayout JustifyContent="SpaceAround">
+                            <Label Text="Movies" Style="{StaticResource MenuLabel}"/>
+                            <Label Text="Tv Shows" Style="{StaticResource MenuLabel}"/>
+                        </FlexLayout>
+                    </Grid>
+                </Grid>
+                <controls:MovieRow Heading="Trending" Medias="{Binding Trending}" OnMediaSelected="MovieRow_OnMediaSelected"/>
+                <controls:MovieRow Heading="Action" Medias="{Binding Action}" OnMediaSelected="MovieRow_OnMediaSelected"/>
+                <controls:MovieRow Heading="Animation" Medias="{Binding Animation}" OnMediaSelected="MovieRow_OnMediaSelected"/>
+                <controls:MovieRow Heading="Crime" Medias="{Binding Crime}" OnMediaSelected="MovieRow_OnMediaSelected"/>
+                <controls:MovieRow Heading="Drama" Medias="{Binding Drama}" OnMediaSelected="MovieRow_OnMediaSelected"/>
+            </VerticalStackLayout>
+        </ScrollView>
+        <controls:MovieInfo Media="{Binding SelectedMedia}"
+                            Rating="{Binding MediaRating, Mode=TwoWay}"
+                            VerticalOptions="End"
+                            IsVisible="{Binding ShowMovieInfoBox}"
+                            Closed="MovieInfo_Closed"
+                            OnMediaRated="MovieInfo_OnMediaRated"/>
+    </Grid>
+
+
+</ContentPage>
